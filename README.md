@@ -1,6 +1,8 @@
 # task_4_konecta
+## Kubernetes Task
 
 ---
+
 ## Initialize Minikube
 First of all, we need to initialize (start) minikube by using: 
 ```bash
@@ -10,7 +12,7 @@ minikube start
 ![image](https://github.com/user-attachments/assets/7bbfa856-bce3-4fcb-a620-abde1d98a17d)
 
 ## 1. Create NGINX Pod via Command (no YAML)
-Running a single "NGINX" pod using:
+Running a single NGINX pod using:
 ```bash
 kubectl run mynginx --image=nginx
 ```
@@ -37,31 +39,93 @@ Check pods by:
 
 -> Output: We can conclude that Pod created but crashes due to image pull error
 
+## 3. Check Pod status and check why it fails
+To check for the Pod status and every details in the pod, use:
+```bash
+kubectl describe pod mynginx
+```
+Basic Details:
+
 ![image](https://github.com/user-attachments/assets/520a127c-dd41-4c60-aa7c-5c2075080fa5)
+
+More details:
+
 ![image](https://github.com/user-attachments/assets/ea2609fa-63cd-4de9-86c9-d391547eb739)
+
+-> Output: ImagePullBackOff error is shgown due to `nginx123` does not exist in DockerHub
+
+## 4. Get Pod name, IP, and Image
+This is applied by using:
+```bash
+kubectl get pod mynginx -o wide
+```
 
 ![image](https://github.com/user-attachments/assets/c577e9f3-f994-43d7-9cce-dea8716fe4cc)
 
-### 5
+-> Outputs the node name, IP Address and Image that was used.
+
+## 5. Delete Pod
+Pod is deleted by using:
+```bash
+kubectl delete pod mynginx
+```
+
 ![image](https://github.com/user-attachments/assets/63542437-6844-4db3-b112-b964e62c1bd2)
+
+Check the Pods:
 
 ![image](https://github.com/user-attachments/assets/e6b9e999-6510-4793-8212-a06b5e63cac2)
 
-### 6
+## 6. Create Pod using YAML with Labels
+Creating the Pod using the YAML file through the command:
+```bash
+kubectl apply -f mynginx.yaml
+```
+
 ![image](https://github.com/user-attachments/assets/0b6bac11-f30e-429b-b90d-7e9ebb8807c9)
+
+Check the created Pod:
+
 ![image](https://github.com/user-attachments/assets/67eb1b2a-3813-423b-8447-7677076601bb)
 
-### 7
+## 7. Create ReplicaSet of 3 replicas
+ReplicaSet have been created of 3 Replicas using the NGINX image in YAML file using command:
+```bash
+kubectl apply -f replicaset.yaml
+```
+
 ![image](https://github.com/user-attachments/assets/4f4d0268-4a59-41de-8a4e-c30db7169125)
+
+Check the created ReplicaSets:
+
 ![image](https://github.com/user-attachments/assets/d5583814-7b5c-47f2-8876-9de12c8a33b2)
 
-### 8
+## 8. ReplicaSet Scaling
+Scaled the ReplicaSet to be 5 without editing in the YAML file through the command:
+```bash
+kubectl scale rs nginx-replicaset --replicas=5
+```
+
 ![image](https://github.com/user-attachments/assets/6c744def-2c33-487c-9d3a-c84492528882)
+
+Check the updated Replicas, new replicas are created to be 5 replicas
+
 ![image](https://github.com/user-attachments/assets/856a3bf7-e6d1-4a28-85bf-2d967257390e)
+
 ![image](https://github.com/user-attachments/assets/ab5f77d6-f909-448e-ade6-ad353faccc0a)
 
-### 9
+## 9. Pod deletion from the Replicaset
+Delete Pod from Replicaset using command:
+```bash
+kubectl delete pod nginx-replicaset-gmwj7 
+```
+
+`nginx-replicaset-gmwj7` = podID
+
 ![image](https://github.com/user-attachments/assets/224e83d6-4cda-4cc4-95ec-57c50eaca9ae)
+
+The Replicaset has been deleted and another one has been replaced to create and make it have 5 Replicas once again.
+
 ![image](https://github.com/user-attachments/assets/0621d3e9-4bbf-4a67-bc4a-2af5e4974d2d)
 ![image](https://github.com/user-attachments/assets/1b3e39ae-7cac-481f-8584-d28462a4da1b)
 
