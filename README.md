@@ -1,16 +1,41 @@
 # task_4_konecta
 
 ---
+## Initialize Minikube
+First of all, we need to initialize (start) minikube by using: 
+```bash
+minikube start
+```
 
 ![image](https://github.com/user-attachments/assets/7bbfa856-bce3-4fcb-a620-abde1d98a17d)
 
-### 1
+## 1. Create NGINX Pod via Command (no YAML)
+Running a single "NGINX" pod using:
+```bash
+kubectl run mynginx --image=nginx
+```
+
 ![image](https://github.com/user-attachments/assets/bc966508-5703-40cd-b510-0059a3713c12)
+
+Checking for NGINX pods
+```bash
+kubectl get pods
+```
+
 ![image](https://github.com/user-attachments/assets/df50653a-ff7b-41f9-a4c2-18bc56eef607)
 
-### 2
+## 2. Create NGINX Pod with Wrong Image (nginx123)
+Command used:
+```bash
+kubectl run mynginx --image=nginx123
+```
 ![image](https://github.com/user-attachments/assets/9a783c48-7891-4d27-8fdb-541940f9c9fa)
+
+Check pods by:
+
 ![image](https://github.com/user-attachments/assets/b39f30cc-db92-42a9-bd93-76ad8bc20d30)
+
+-> Output: We can conclude that Pod created but crashes due to image pull error
 
 ![image](https://github.com/user-attachments/assets/520a127c-dd41-4c60-aa7c-5c2075080fa5)
 ![image](https://github.com/user-attachments/assets/ea2609fa-63cd-4de9-86c9-d391547eb739)
