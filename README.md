@@ -324,7 +324,8 @@ Then, open the URL preovided on a browser
 ## 21. Create a Backend
 Create another Deployment for the backend using the following:
   - Image: python:3.8-slim
-  - Command: ["python", "-m", "http.server", "8080"] (include this command in the deployment file)
+  - Command: ["python", "-m", "http.server", "8080"] (include this command in the deployment file)'
+
 After creating the `ba_deploy.yaml` file, apply it using
 ```
 kubecxtl apply -f be_deploy.yaml
